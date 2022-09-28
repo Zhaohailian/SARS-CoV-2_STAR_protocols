@@ -1,0 +1,5 @@
+bwa mem -t 20 mm9.fa read_1.paired.fq.gz read_2.paired.fq.gz |samtools sort -@ 8 -o G4.sort.bam
+samtools view -h -q 10 -b G4.sort.bam > G4.flt.bam
+java -jar /mnt/pub/work/zhaohl/0.1.software/picard.jar MarkDuplicates I=G4.flt.bam O=G4.rmdup.flt.bam M=G4_metrics.txt REMOVE_DUPLICATES=true
+macs2 callpeak -t G4.cKO.merge.bam -f BAMPE -g mm -n cKO
+macs2 callpeak -t G4.WT.merge.bam -f BAMPE -g mm -n WT
